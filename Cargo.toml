@@ -1,0 +1,5 @@
+[package]
+
+name = "Rust-Game"
+version = "0.0.1"
+authors = ["Dylan Johnson <dylanatasmsa@gmail.com>"]
