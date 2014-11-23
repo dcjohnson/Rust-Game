@@ -9,10 +9,10 @@ dependencies = [
 [[package]]
 name = "little_rust_tcp"
 version = "0.0.1"
-source = "git+https://github.com/DylanTheVillain/Little-Rust-Tcp#d3447f1fc18e2dbbb84e90898734f926d4d01d20"
+source = "git+https://github.com/DylanTheVillain/Little-Rust-Tcp#a7a7f09ca5b1c03af1541038435fe20bcc20e0a4"
 
 [[package]]
 name = "sdl2"
 version = "0.0.1-alpha.1"
-source = "git+https://github.com/AngryLawyer/rust-sdl2#93cc0d4184b3f66dbced0e46798dc3800717cb3b"
+source = "git+https://github.com/AngryLawyer/rust-sdl2#c8a3c7afc0974df68e8996cce7f25fb9f827ef77"
 
