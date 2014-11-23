@@ -1,25 +1,17 @@
 extern crate little_rust_tcp;
+extern crate lib;
 use std::string::String;
 use little_rust_tcp::tcpserver::ServerFunction;
-use little_rust_tcp::data::Data;
-use std::io::TcpStream;
+use std::sync::{Arc, Mutex};
+use lib::custom_data::CustomDataFunctions;
+
 
 fn main()
 {
-    let x = DataStruct{x: String::from_str("Hello")};
-    let server = ServerFunction::new(String::from_str("8000"));
-    server.start_server(x);
-}
 
-struct DataStruct
-{
-    x: String
-}
-
-impl Data for DataStruct
-{
-    fn process_request_data(&self, mut request: TcpStream)
-    {
-        request.write(b"Hello World!!\r\n").unwrap();
-    }
+    let mut data = CustomDataFunctions::new();
+    let mut x = String::from_str("Hell");
+    data.push(x);
+    let server = ServerFunction::new(String::from_str("8010"));
+    server.start_server(data);
 }

@@ -3,6 +3,10 @@ name = "Rust-Game"
 version = "0.0.1"
 authors = ["Dylan Johnson <dylanatasmsa@gmail.com>"]
 
+[lib]
+name = "lib"
+path = "src/libfolder/lib.rs"
+
 [dependencies.sdl2]
 git = "https://github.com/AngryLawyer/rust-sdl2"
 
