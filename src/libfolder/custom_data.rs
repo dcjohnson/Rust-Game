@@ -42,7 +42,6 @@ impl Data for DataStruct
             if (string.len() > 0)
             {
                 self.request_buffer.push_back(string);
-                println!("{}", self.request_buffer.pop_front().unwrap());
             }
         }
         request.write(b"Hello World\r\n").unwrap();
