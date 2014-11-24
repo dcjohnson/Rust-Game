@@ -9,7 +9,7 @@ dependencies = [
 [[package]]
 name = "little_rust_tcp"
 version = "0.0.1"
-source = "git+https://github.com/DylanTheVillain/Little-Rust-Tcp#dce29949f7f40ac270cc30c6f1f278b5abf915fd"
+source = "git+https://github.com/DylanTheVillain/Little-Rust-Tcp#762b86340e848f616903851427bd812fbc325758"
 
 [[package]]
 name = "sdl2"

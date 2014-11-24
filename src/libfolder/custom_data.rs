@@ -1,41 +1,50 @@
 use std::io::TcpStream;
 use little_rust_tcp::data::Data;
 use std::collections::ring_buf::RingBuf;
+use std::sync::{Arc, Mutex};
+use std::string::String;
 
 pub struct DataStruct
 {
-    unprocessed_data: RingBuf<String>
+    unprocessed_data: Arc<Mutex<RingBuf<String>>>,
+    request_buffer: RingBuf<String>
 }
 
-pub trait CustomDataFunctions
+pub trait DataConstructor
 {
     fn new() -> DataStruct;
-    fn pop(&mut self) -> Option<String>;
-    fn push(&mut self, new_data: String);
 }
 
-impl CustomDataFunctions for DataStruct
+trait PrivateUtilityTrait
+{
+
+}
+
+impl DataConstructor for DataStruct
 {
     fn new() -> DataStruct
     {
-        return DataStruct{unprocessed_data: RingBuf::new()};
-    }
-
-    fn pop(&mut self) -> Option<String>
-    {
-        return self.unprocessed_data.pop_front();
-    }
-
-    fn push(&mut self, new_data: String)
-    {
-        self.unprocessed_data.push_back(new_data);
+        let unprocessed = Arc::new(Mutex::new(RingBuf::new()));
+        let buffer = RingBuf::new();
+        return DataStruct{unprocessed_data: unprocessed, request_buffer: buffer};
     }
 }
 
 impl Data for DataStruct
 {
-    fn process_request_data(&self, mut request: TcpStream)
+    fn process_request_data(&mut self, mut request: TcpStream)
     {
-        request.write(b"test\r\n").unwrap();
+        let message = request.read_to_string();
+        let someobject = message.ok();
+        if (someobject != None)
+        {
+            let string = someobject.unwrap();
+            if (string.len() > 0)
+            {
+                self.request_buffer.push_back(string);
+                println!("{}", self.request_buffer.pop_front().unwrap());
+            }
+        }
+        request.write(b"Hello World\r\n").unwrap();
     }
 }
