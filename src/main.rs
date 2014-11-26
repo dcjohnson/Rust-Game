@@ -1,28 +1,23 @@
 extern crate little_rust_tcp;
 extern crate lib;
 use std::string::String;
-use std::sync::{Arc, Mutex};
 use little_rust_tcp::tcpserver::ServerFunction;
-use lib::custom_data::DataConstructor;
-use lib::custom_data::DataStruct;
-use std::io::timer;
-use std::time::Duration;
+use lib::custom_data::ServerDataConstructor;
+use lib::custom_data::DataAnalyzer;
+use std::sync::{Arc, Mutex};
+use std::collections::ring_buf::RingBuf;
 
 fn main()
 {
-    let mut data = DataConstructor::new();
-    let mut server = ServerFunction::new(String::from_str("8000"));
-    server.start_server(data);
-    // let arc = Arc::new(Mutex::new(CustomDataFunctions::new()));
-    // let mut t = CustomDataFunctions::new();
-    // t.process_request_data();
+    let shared_ring_buf = Arc::new(Mutex::new(RingBuf::new()));
+    let server_data = ServerDataConstructor::new(shared_ring_buf.clone());
+    let mut data_analyzer = DataAnalyzer::new(shared_ring_buf.clone());
+    let server = ServerFunction::new(String::from_str("8000"));
+    spawn(proc(){
+        server.start_server(server_data);
+    });
+    loop
+    {
+        data_analyzer.interpret_data();
+    }
 }
-
-// fn start_server_proc(data_clone: Arc<Mutex<DataStruct>>)
-// {
-//     spawn(proc(){
-//         let mut locked_data = data_clone.lock();
-//         let server = ServerFunction::new(String::from_str("8000"));
-//         server.start_server(locked_data);
-//     });
-// }
