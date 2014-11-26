@@ -1,2 +1,2 @@
 extern crate little_rust_tcp;
-pub mod custom_data;
+pub mod server_data;
