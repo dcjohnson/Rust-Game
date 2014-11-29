@@ -4,17 +4,43 @@ use std::collections::ring_buf::RingBuf;
 use std::sync::{Arc, Mutex};
 use std::string::String;
 
+pub enum GameState
+{
+    GatherClients,
+    ActiveGame,
+    Idle
+}
+
 pub struct DataAnalyzerStruct
 {
     unprocessed_data: RingBuf<String>,
-    server_data: Arc<Mutex<RingBuf<String>>>
+    server_data: Arc<Mutex<RingBuf<String>>>,
+    game_state: GameState
 }
 
 pub trait DataAnalyzer
 {
     fn new(new_server_data: Arc<Mutex<RingBuf<String>>>) -> DataAnalyzerStruct;
     fn interpret_data(&mut self);
+    fn alter_state(&mut self, new_state: GameState);
+}
+
+trait PrivateDataAnalyzerTrait
+{
     fn push_request_to_unprocessed(&mut self);
+}
+
+impl PrivateDataAnalyzerTrait for DataAnalyzerStruct
+{
+    fn push_request_to_unprocessed(&mut self)
+    {
+        let mut locked_server_data = self.server_data.lock();
+        while locked_server_data.len() > 0
+        {
+            let request_string = locked_server_data.pop_front();
+            self.unprocessed_data.push_back(request_string.unwrap());
+        }
+    }
 }
 
 impl DataAnalyzer for DataAnalyzerStruct
@@ -22,7 +48,8 @@ impl DataAnalyzer for DataAnalyzerStruct
     fn new(new_server_data: Arc<Mutex<RingBuf<String>>>) -> DataAnalyzerStruct
     {
         let ringbuf = RingBuf::new();
-        return DataAnalyzerStruct{unprocessed_data: ringbuf, server_data: new_server_data};
+        let state = GameState::Idle;
+        return DataAnalyzerStruct{unprocessed_data: ringbuf, server_data: new_server_data, game_state: state};
     }
 
     fn interpret_data(&mut self)
@@ -34,18 +61,19 @@ impl DataAnalyzer for DataAnalyzerStruct
         let request_string = self.unprocessed_data.pop_front();
         if request_string != None
         {
-            println!("{}", request_string.unwrap());
+            match self.game_state
+            {
+                // Place Holder
+                GameState::Idle => println!("{}", request_string.unwrap()),
+                GameState::ActiveGame => println!("ActiveGame"),
+                GameState::GatherClients => println!("GatherClients")
+            }
         }
     }
 
-    fn push_request_to_unprocessed(&mut self)
+    fn alter_state(&mut self, new_state: GameState)
     {
-        let mut locked_server_data = self.server_data.lock();
-        while locked_server_data.len() > 0
-        {
-            let request_string = locked_server_data.pop_front();
-            self.unprocessed_data.push_back(request_string.unwrap());
-        }
+        self.game_state = new_state;
     }
 }
 
