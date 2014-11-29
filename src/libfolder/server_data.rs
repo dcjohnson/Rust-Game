@@ -1,5 +1,5 @@
-use std::io::TcpStream;
 use little_rust_tcp::data::Data;
+use std::io::TcpStream;
 use std::collections::ring_buf::RingBuf;
 use std::sync::{Arc, Mutex};
 use std::string::String;
