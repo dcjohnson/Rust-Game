@@ -7,8 +7,5 @@ authors = ["Dylan Johnson <dylanatasmsa@gmail.com>"]
 name = "lib"
 path = "src/libfolder/lib.rs"
 
-[dependencies.sdl2]
-git = "https://github.com/AngryLawyer/rust-sdl2"
-
 [dependencies.little_rust_tcp]
 git = "https://github.com/DylanTheVillain/Little-Rust-Tcp"
