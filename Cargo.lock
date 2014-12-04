@@ -3,16 +3,16 @@ name = "Rust-Game"
 version = "0.0.1"
 dependencies = [
  "little_rust_tcp 0.0.1 (git+https://github.com/DylanTheVillain/Little-Rust-Tcp)",
- "sdl2 0.0.5 (git+https://github.com/AngryLawyer/rust-sdl2)",
+ "sdl2 0.0.7 (git+https://github.com/AngryLawyer/rust-sdl2)",
 ]
 
 [[package]]
 name = "little_rust_tcp"
 version = "0.0.1"
-source = "git+https://github.com/DylanTheVillain/Little-Rust-Tcp#762b86340e848f616903851427bd812fbc325758"
+source = "git+https://github.com/DylanTheVillain/Little-Rust-Tcp#a055b9470faaa3d010d5790f8e37c81720a36084"
 
 [[package]]
 name = "sdl2"
-version = "0.0.5"
-source = "git+https://github.com/AngryLawyer/rust-sdl2#13e09c2e8d0c03d80e6e676ffb71293d869841e1"
+version = "0.0.7"
+source = "git+https://github.com/AngryLawyer/rust-sdl2#81daa9f8eed74e154f34597cde2d4ed9041f0ac4"
 
