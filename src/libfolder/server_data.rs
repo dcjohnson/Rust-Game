@@ -1,4 +1,4 @@
-use little_rust_tcp::data::Data;
+use little_rust_tcp::data::ServerData;
 use std::io::TcpStream;
 use std::collections::ring_buf::RingBuf;
 use std::sync::{Arc, Mutex};
@@ -95,7 +95,7 @@ impl ServerDataConstructor for ServerDataStruct
     }
 }
 
-impl Data for ServerDataStruct
+impl ServerData for ServerDataStruct
 {
     fn process_request_data(&mut self, mut request: TcpStream)
     {
