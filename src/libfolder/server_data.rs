@@ -54,19 +54,22 @@ impl DataAnalyzer for DataAnalyzerStruct
 
     fn interpret_data(&mut self)
     {
-        if self.unprocessed_data.len() == 0
+        loop
         {
-            self.push_request_to_unprocessed();
-        }
-        let request_string = self.unprocessed_data.pop_front();
-        if request_string != None
-        {
-            match self.game_state
+            if self.unprocessed_data.len() == 0
             {
-                // Place Holder
-                GameState::Idle => println!("{}", request_string.unwrap()),
-                GameState::ActiveGame => println!("ActiveGame"),
-                GameState::GatherClients => println!("GatherClients")
+                self.push_request_to_unprocessed();
+            }
+            let request_string = self.unprocessed_data.pop_front();
+            if request_string != None
+            {
+                match self.game_state
+                {
+                    // Place Holder
+                    GameState::Idle => println!("{}", request_string.unwrap()),
+                    GameState::ActiveGame => println!("ActiveGame"),
+                    GameState::GatherClients => println!("GatherClients")
+                }
             }
         }
     }
