@@ -35,14 +35,7 @@ pub struct MovementStruct
     slope_y: int
 }
 
-pub trait Bullet
-{
-    fn new(owner: String,
-        movement_struct: MovementStruct,
-        shape_struct: ShapeStruct) -> BulletStruct;
-}
-
-impl Bullet for BulletStruct
+impl BulletStruct
 {
     fn new(owner: String,
         movement_struct: MovementStruct,
@@ -57,15 +50,7 @@ impl Bullet for BulletStruct
     }
 }
 
-pub trait Player
-{
-    fn new(name: String,
-        ip: String,
-        movement_struct: MovementStruct,
-        shape_struct: ShapeStruct) -> PlayerStruct;
-}
-
-impl Player for PlayerStruct
+impl PlayerStruct
 {
     fn new(name: String,
         ip: String,
@@ -85,21 +70,44 @@ impl Player for PlayerStruct
 
 pub trait Sprite
 {
-    fn detect_movement(&mut self);
     fn kill_self(&mut self);
     fn move_sprite(&mut self);
-    fn update_shape(&mut self);
+    fn update_shape(&mut self, width: int, heigth: int);
 }
 
-pub trait Movement
+impl Sprite for BulletStruct
 {
-    fn new(location_x: int, location_y: int, slope_x: int, slope_x: int) -> MovementStruct;
-    fn update_location(&mut self, location_x: int, location_y: int);
-    fn update_slope(&mut self, slope_x: int, slope_x: int);
-    fn apply_slope(&mut self);
+    fn kill_self(&mut self)
+    {
+        self.is_alive = false;
+    }
+    fn move_sprite(&mut self)
+    {
+        self.movement.apply_slope();
+    }
+    fn update_shape(&mut self, width: int, heigth: int)
+    {
+        self.shape.change_dimensions(width, heigth);
+    }
 }
 
-impl Movement for MovementStruct
+impl Sprite for PlayerStruct
+{
+    fn kill_self(&mut self)
+    {
+        self.is_alive = false;
+    }
+    fn move_sprite(&mut self)
+    {
+        self.movement.apply_slope();
+    }
+    fn update_shape(&mut self, width: int, heigth: int)
+    {
+        self.shape.change_dimensions(width, heigth);
+    }
+}
+
+impl MovementStruct
 {
     fn new(l_x: int, l_y: int, s_x: int, s_y: int) -> MovementStruct
     {
@@ -122,14 +130,7 @@ impl Movement for MovementStruct
     }
 }
 
-pub trait Shape
-{
-    fn new(width: int, heigth: int, rotation: int) -> ShapeStruct;
-    fn rotate(&mut self, degrees_of_rotation: int);
-    fn change_dimensions(&mut self, width: int, heigth: int);
-}
-
-impl Shape for ShapeStruct
+impl ShapeStruct
 {
     fn new(w: int, h: int, rot: int) -> ShapeStruct
     {
