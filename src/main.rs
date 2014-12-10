@@ -3,6 +3,8 @@ extern crate lib;
 use little_rust_tcp::tcpserver::ServerFunction;
 use lib::server_data::ServerDataConstructor;
 use lib::server_data::DataAnalyzer;
+use lib::game_data;
+use lib::sdl_data;
 use std::string::String;
 use std::sync::{Arc, Mutex};
 use std::collections::ring_buf::RingBuf;

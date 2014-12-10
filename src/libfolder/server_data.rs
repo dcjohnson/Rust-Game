@@ -4,7 +4,7 @@ use std::collections::ring_buf::RingBuf;
 use std::sync::{Arc, Mutex};
 use std::string::String;
 
-pub enum GameState
+pub enum ServerState
 {
     GatherClients,
     ActiveGame,
@@ -15,14 +15,14 @@ pub struct DataAnalyzerStruct
 {
     unprocessed_data: RingBuf<String>,
     server_data: Arc<Mutex<RingBuf<String>>>,
-    game_state: GameState
+    server_state: ServerState
 }
 
 pub trait DataAnalyzer
 {
     fn new(new_server_data: Arc<Mutex<RingBuf<String>>>) -> DataAnalyzerStruct;
     fn interpret_data(&mut self);
-    fn alter_state(&mut self, new_state: GameState);
+    fn alter_state(&mut self, new_state: ServerState);
 }
 
 trait PrivateDataAnalyzerTrait
@@ -48,8 +48,8 @@ impl DataAnalyzer for DataAnalyzerStruct
     fn new(new_server_data: Arc<Mutex<RingBuf<String>>>) -> DataAnalyzerStruct
     {
         let ringbuf = RingBuf::new();
-        let state = GameState::Idle;
-        return DataAnalyzerStruct{unprocessed_data: ringbuf, server_data: new_server_data, game_state: state};
+        let state = ServerState::Idle;
+        return DataAnalyzerStruct{unprocessed_data: ringbuf, server_data: new_server_data, server_state: state};
     }
 
     fn interpret_data(&mut self)
@@ -63,20 +63,20 @@ impl DataAnalyzer for DataAnalyzerStruct
             let request_string = self.unprocessed_data.pop_front();
             if request_string != None
             {
-                match self.game_state
+                match self.server_state
                 {
                     // Place Holder
-                    GameState::Idle => println!("{}", request_string.unwrap()),
-                    GameState::ActiveGame => println!("ActiveGame"),
-                    GameState::GatherClients => println!("GatherClients")
+                    ServerState::Idle => println!("{}", request_string.unwrap()),
+                    ServerState::ActiveGame => println!("ActiveGame"),
+                    ServerState::GatherClients => println!("GatherClients")
                 }
             }
         }
     }
 
-    fn alter_state(&mut self, new_state: GameState)
+    fn alter_state(&mut self, new_state: ServerState)
     {
-        self.game_state = new_state;
+        self.server_state = new_state;
     }
 }
 
