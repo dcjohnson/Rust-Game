@@ -10,5 +10,5 @@ path = "src/libfolder/lib.rs"
 [dependencies.little_rust_tcp]
 git = "https://github.com/DylanTheVillain/Little-Rust-Tcp"
 
-[dependencies.sdl2]
-git  = "https://github.com/AngryLawyer/rust-sdl2.git"
+[dependencies.graphics]
+git = "https://github.com/PistonDevelopers/graphics"

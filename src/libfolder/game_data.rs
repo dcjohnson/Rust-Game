@@ -35,7 +35,14 @@ pub struct MovementStruct
     slope_y: int
 }
 
-impl BulletStruct
+pub trait Bullet
+{
+    fn new(owner: String,
+        movement_struct: MovementStruct,
+        shape_struct: ShapeStruct) -> BulletStruct;
+}
+
+impl Bullet for BulletStruct
 {
     fn new(owner: String,
         movement_struct: MovementStruct,
@@ -50,7 +57,15 @@ impl BulletStruct
     }
 }
 
-impl PlayerStruct
+pub trait Player
+{
+    fn new(name: String,
+        ip: String,
+        movement_struct: MovementStruct,
+        shape_struct: ShapeStruct) -> PlayerStruct;
+}
+
+impl Player for PlayerStruct
 {
     fn new(name: String,
         ip: String,

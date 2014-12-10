@@ -2,17 +2,43 @@
 name = "Rust-Game"
 version = "0.0.1"
 dependencies = [
+ "graphics 0.0.0 (git+https://github.com/PistonDevelopers/graphics)",
  "little_rust_tcp 0.0.1 (git+https://github.com/DylanTheVillain/Little-Rust-Tcp)",
- "sdl2 0.0.7 (git+https://github.com/AngryLawyer/rust-sdl2.git)",
+]
+
+[[package]]
+name = "current"
+version = "0.0.0"
+source = "git+https://github.com/PistonDevelopers/current#ad63ba6a342071ddbcc1652e503c91358504d708"
+
+[[package]]
+name = "graphics"
+version = "0.0.0"
+source = "git+https://github.com/PistonDevelopers/graphics#3a76416c7332a7e2cc28208c5021a430b65d075d"
+dependencies = [
+ "current 0.0.0 (git+https://github.com/PistonDevelopers/current)",
+ "read_color 0.0.1 (git+https://github.com/PistonDevelopers/read_color)",
+ "texture 0.0.0 (git+https://github.com/PistonDevelopers/texture)",
+ "vecmath 0.0.0 (git+https://github.com/PistonDevelopers/vecmath)",
 ]
 
 [[package]]
 name = "little_rust_tcp"
 version = "0.0.1"
-source = "git+https://github.com/DylanTheVillain/Little-Rust-Tcp#37433135ec5a42828000c9aa7e72523f97ece796"
+source = "git+https://github.com/DylanTheVillain/Little-Rust-Tcp#2ae7ce71365e67e11997b0bc223ba965853a6566"
 
 [[package]]
-name = "sdl2"
-version = "0.0.7"
-source = "git+https://github.com/AngryLawyer/rust-sdl2.git#81daa9f8eed74e154f34597cde2d4ed9041f0ac4"
+name = "read_color"
+version = "0.0.1"
+source = "git+https://github.com/PistonDevelopers/read_color#c563f9f02a0879353f1c360be1817fe0dadfa9d3"
+
+[[package]]
+name = "texture"
+version = "0.0.0"
+source = "git+https://github.com/PistonDevelopers/texture#65e7bbd59a2a2e8354ec0dd0cdd35260db64f85b"
+
+[[package]]
+name = "vecmath"
+version = "0.0.0"
+source = "git+https://github.com/PistonDevelopers/vecmath#e0efa852073bf6129dc6b888752306f0de7aea30"
 
