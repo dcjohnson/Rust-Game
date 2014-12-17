@@ -22,10 +22,10 @@ fn init_network(server: little_rust_tcp::tcpserver::Server,
     server_data: lib::server_data::ServerDataStruct,
     mut data_analyzer: lib::server_data::DataAnalyzerStruct)
 {
-    spawn(proc(){
+    spawn(move || {
         server.start_server(server_data);
     });
-    spawn(proc(){
+    spawn(move || {
         data_analyzer.interpret_data();
     });
 }
