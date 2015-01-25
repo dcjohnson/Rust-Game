@@ -3,16 +3,38 @@ name = "Rust-Game"
 version = "0.0.1"
 dependencies = [
  "little_rust_tcp 0.0.1 (git+https://github.com/DylanTheVillain/Little-Rust-Tcp)",
- "sdl2 0.0.10 (git+https://github.com/AngryLawyer/rust-sdl2)",
+ "sdl2 0.0.18 (git+https://github.com/AngryLawyer/rust-sdl2)",
 ]
+
+[[package]]
+name = "bitflags"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "little_rust_tcp"
 version = "0.0.1"
-source = "git+https://github.com/DylanTheVillain/Little-Rust-Tcp#2ae7ce71365e67e11997b0bc223ba965853a6566"
+source = "git+https://github.com/DylanTheVillain/Little-Rust-Tcp#cb0b9a29cb9a989cf0634f06a07ad215fda9a91f"
+
+[[package]]
+name = "pkg-config"
+version = "0.1.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "sdl2"
-version = "0.0.10"
-source = "git+https://github.com/AngryLawyer/rust-sdl2#2443bab12097018505dbb303a5fb70e86afa9bab"
+version = "0.0.18"
+source = "git+https://github.com/AngryLawyer/rust-sdl2#1b29c7a1a6d688325da1e1f096a0a255bb14477c"
+dependencies = [
+ "bitflags 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "sdl2-sys 0.0.16 (git+https://github.com/AngryLawyer/rust-sdl2)",
+]
+
+[[package]]
+name = "sdl2-sys"
+version = "0.0.16"
+source = "git+https://github.com/AngryLawyer/rust-sdl2#1b29c7a1a6d688325da1e1f096a0a255bb14477c"
+dependencies = [
+ "pkg-config 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
+]
 

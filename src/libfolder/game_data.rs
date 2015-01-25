@@ -1,6 +1,5 @@
 use std::string::String;
 use std::vec::Vec;
-use std::bool;
 
 pub struct PlayerStruct
 {

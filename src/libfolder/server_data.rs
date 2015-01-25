@@ -20,7 +20,7 @@ pub struct DataAnalyzerStruct
 
 pub trait DataAnalyzer
 {
-    fn new(new_server_data: Arc<Mutex<RingBuf<String>>>) -> DataAnalyzerStruct;
+    fn new(new_server_data: Arc<Mutex<RingBuf<String>>>) -> Self;
     fn interpret_data(&mut self);
     fn alter_state(&mut self, new_state: ServerState);
 }
@@ -34,7 +34,7 @@ impl PrivateDataAnalyzerTrait for DataAnalyzerStruct
 {
     fn push_request_to_unprocessed(&mut self)
     {
-        let mut locked_server_data = self.server_data.lock();
+        let mut locked_server_data = self.server_data.lock().unwrap();
         while locked_server_data.len() > 0
         {
             let request_string = locked_server_data.pop_front();
@@ -87,7 +87,7 @@ pub struct ServerDataStruct
 
 pub trait ServerDataConstructor
 {
-    fn new(request_buffer_new: Arc<Mutex<RingBuf<String>>>) -> ServerDataStruct;
+    fn new(request_buffer_new: Arc<Mutex<RingBuf<String>>>) -> Self;
 }
 
 impl ServerDataConstructor for ServerDataStruct
@@ -109,7 +109,7 @@ impl ServerData for ServerDataStruct
             let string = someobject.unwrap();
             if string.len() > 0
             {
-                let mut locked_request_buffer = self.request_buffer.lock();
+                let mut locked_request_buffer = self.request_buffer.lock().unwrap();
                 locked_request_buffer.push_back(string);
             }
         }
